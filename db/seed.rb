@@ -20,12 +20,12 @@ show_table = <<-SQL
   
 database[:conn].execute(show_table)
 
-csv = File.read('daily_show_guests.csv') # couldn't get CSV.read to work :(
+csv = File.read('daily_show_guests.csv') # couldn't get CSV.read to work
 
 CSV.parse(csv, headers: true).each_with_index do |row, index|
   input = <<-SQL
-    INSERT INTO JohnStewartShow (id, year, occupation, show_date, category, name)
-    VALUES (?,?,?,?,?,?)
+    insert into JohnStewartShow (id, year, occupation, show_date, category, name)
+    values (?,?,?,?,?,?)
     SQL
   database[:conn].execute(input, index, row.fields)
 end
